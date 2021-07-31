@@ -1,8 +1,8 @@
 const characterAmountNumber = document.getElementById("characterAmountNumber");
-const form = document.getElementById("passwordGeneratorForm");
-const includeUpperCase = document.getElementById("includeUpperCase");
-const IncludeNumber = document.getElementById("includeNumber");
-const includeSpecial = document.getElementById("includeSpecial");
+const form = document.getElementById("passwordGenerateForm");
+const includeUpperCaseElement = document.getElementById("includeUpperCase");
+const includeNumberElement = document.getElementById("includeNumber");
+const includeSpecialElement = document.getElementById("includeSpecial");
 const passwordDisplay = document.getElementById("passwordDisplay");
 
 //ARRAYS CHARACTER CODES
@@ -15,18 +15,19 @@ const SPECIAL_CHAR_CODES = arrayFromLowToHigh(33, 47)
 
 characterAmountNumber.addEventListener("input", synCharacterAmount);
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const characterAmount = characterAmountNumber.value;
-  const password = generatePassword(
-    characterAmount,
-    includeUpperCase,
-    IncludeNumber,
-    includeSpecial
-  );
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const characterAmount = characterAmountNumber.value
   const includeUpperCase = includeUpperCaseElement.checked;
   const includeNumber = includeNumberElement.checked;
   const includeSpecial = includeSpecialElement.checked;
+  const password = generatePassword(
+    characterAmount,
+    includeUpperCase,
+    includeNumber,
+    includeSpecial
+  );
+  
   passwordDisplay.innerText = password;
 });
 
@@ -40,6 +41,7 @@ function generatePassword(
   if (includeUpperCase) charCodes = charCodes.concat(UPPERCASE_CHAR_CODES);
   if (includeNumber) charCodes = charCodes.concat(NUMBER_CHAR_CODES);
   if (includeSpecial) charCodes = charCodes.concat(SPECIAL_CHAR_CODES);
+
   const passwordCharacters = [];
   for (let i = 0; i < characterAmount; i++) {
     character = charCodes[Math.floor(Math.random() * charCodes.length)];
@@ -55,7 +57,7 @@ function arrayFromLowToHigh(low, high) {
   return array;
 }
 
-function synCharacterAmount(e) {
-  const value = e.target.value;
+function synCharacterAmount(event) {
+  const value = event.target.value;
   characterAmountNumber.value = value;
 }
