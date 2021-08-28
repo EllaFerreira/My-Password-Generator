@@ -1,4 +1,4 @@
-# Password Generator
+# Password Generator 🔐
 
 Generate your password.
 
